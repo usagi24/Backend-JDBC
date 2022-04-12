@@ -71,7 +71,6 @@ public class AddData extends HttpServlet {
 				obj.setInvoice_id(Integer.parseInt(req.getParameter("invoice_id")));
 				obj.setIsOpen(Short.parseShort(req.getParameter("isOpen")));
 
-//				System.out.println(obj.getInsertStatement());
 				st.execute(obj.getInsertStatement());
 				out.println(gson.toJson(true));
 				st.close();

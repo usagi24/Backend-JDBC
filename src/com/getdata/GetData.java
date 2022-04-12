@@ -46,7 +46,7 @@ public class GetData extends HttpServlet {
 			Connection con = DriverManager.getConnection(url, user, password);
 			if (con != null) {
 				Statement st = con.createStatement();
-				ResultSet rs = st.executeQuery("SELECT * from winter_internship");
+				ResultSet rs = st.executeQuery("SELECT * from winter_internship where is_deleted = 0");
 
 				ArrayList <Pojo> data = new ArrayList();
 
@@ -76,9 +76,8 @@ public class GetData extends HttpServlet {
 					obj.setAging_bucket(rs.getString("aging_bucket"));
 					obj.setIs_deleted(rs.getShort("is_deleted"));
 					
-					if(obj.getIs_deleted() == 0) {
-						data.add(obj);
-					}
+					data.add(obj);
+
 				} 
 				out.println(gson.toJson(data));
 				st.close();

@@ -46,7 +46,6 @@ public class UpdateData extends HttpServlet {
 			Connection con = DriverManager.getConnection(url, user, password);
 			if (con != null) {
 				Statement st = con.createStatement();
-
 				Pojo obj = new Pojo();
 				
 				st.execute(obj.getUpdateStatement(req.getParameter("sl_no"), req.getParameter("cust_payment_terms"),

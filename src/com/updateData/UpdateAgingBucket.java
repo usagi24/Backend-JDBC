@@ -1,4 +1,4 @@
-package com.deleteData;
+package com.updateData;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.pojo.Pojo;
 
-@WebServlet("/DeleteData")
-public class DeleteData extends HttpServlet {
+@WebServlet("/UpdateAgingBucket")
+public class UpdateAgingBucket extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -36,6 +36,9 @@ public class DeleteData extends HttpServlet {
 		res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 		res.setHeader("Access-Control-Max-Age", "86400");
 
+		String[] doc_id_list = req.getParameter("doc_id_list").split(",");
+		String[] aging_bucket_list = req.getParameter("aging_bucket_list").split(",");
+
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -47,13 +50,17 @@ public class DeleteData extends HttpServlet {
 			if (con != null) {
 				Statement st = con.createStatement();
 
-				Pojo obj = new Pojo();
+				for (int i = 0; i < doc_id_list.length; i++) {
+					
+					st.execute("Update winter_internship set aging_bucket='" +  aging_bucket_list[i] + "' where doc_id="
+							+ doc_id_list[i]);
+				}
 
-				st.execute(obj.getDeleteStatment(req.getParameter("sl_no")));
 				out.println(gson.toJson(true));
 				st.close();
 				con.close();
 			}
+
 		} catch (SQLException ex) {
 			out.println(gson.toJson(false));
 			ex.printStackTrace();
