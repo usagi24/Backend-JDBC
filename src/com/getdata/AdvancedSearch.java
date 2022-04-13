@@ -50,19 +50,19 @@ public class AdvancedSearch extends HttpServlet {
 		
 		String advanced_search_query = "SELECT * from winter_internship where is_deleted = 0"; 
 		if(doc_id != null) {
-			advanced_search_query += " AND doc_id = " + doc_id;
+			advanced_search_query += " AND doc_id LIKE '%" + doc_id + "%'";
 		}
 		
 		if(inv_id != null) {
-			advanced_search_query += " AND invoice_id = " + inv_id;
+			advanced_search_query += " AND invoice_id LIKE '%" + inv_id + "%'";
 		}
 		
 		if(cust_num != null) {
-			advanced_search_query += " AND cust_number = " + cust_num;
+			advanced_search_query += " AND cust_number LIKE '%" + cust_num + "%'";
 		}
 		
 		if(business_year != null) {
-			advanced_search_query += " AND buisness_year = " + business_year;
+			advanced_search_query += " AND buisness_year LIKE '%" + business_year + "%'";
 		}
 
 		try {
